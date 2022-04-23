@@ -10,7 +10,7 @@ using Robust.Shared.Timing;
 // Just make sure to consistently use a prefix across your different projects.
 namespace Template.Game;
 
-public class EntryPoint : GameClient
+public sealed class EntryPoint : GameClient
 {
     // See line 35. Controls the default game culture and language.
     // Robust calls this culture, but you might find it more fitting to call it the game
