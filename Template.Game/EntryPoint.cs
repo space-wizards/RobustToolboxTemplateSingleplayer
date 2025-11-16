@@ -1,5 +1,7 @@
 using System.Globalization;
 using Robust.Client;
+using Robust.Shared;
+using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
@@ -25,12 +27,17 @@ public sealed class EntryPoint : GameClient
         // Default to en-US.
         // DEVNOTE: If you want your game to be multi-regional at runtime, you'll need to 
         // do something more complicated here.
-        IoCManager.Resolve<ILocalizationManager>().LoadCulture(new CultureInfo(Culture));
+        Dependencies.Resolve<ILocalizationManager>().LoadCulture(new CultureInfo(Culture));
+
+        // DEVNOTE: Set this to the name of your solution file to make XAML hot reload work.
+        Dependencies.Resolve<IConfigurationManager>().OverrideDefault(
+            CVars.XamlHotReloadMarkerName,
+            "RobustTemplateSingleplayer.sln");
     }
 
     public override void Init()
     {
-        var factory = IoCManager.Resolve<IComponentFactory>();
+        var factory = Dependencies.Resolve<IComponentFactory>();
 
         // DEVNOTE: Registers all of your components.
         factory.DoAutoRegistrations();
@@ -53,7 +60,7 @@ public sealed class EntryPoint : GameClient
         // DEVNOTE: This starts the singleplayer mode,
         // which means you can start creating entities, spawning things...
         // If you want to have a main menu to start the game from instead, use the StateManager.
-        IoCManager.Resolve<IBaseClient>().StartSinglePlayer();
+        Dependencies.Resolve<IBaseClient>().StartSinglePlayer();
     }
 
     protected override void Dispose(bool disposing)

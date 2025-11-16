@@ -1,9 +1,11 @@
+using System;
 using Robust.Client;
 
 namespace Template.Game;
 
 internal static class Program
 {
+    [STAThread]
     public static void Main(string[] args)
     {
         ContentStart.StartLibrary(args, new GameControllerOptions()

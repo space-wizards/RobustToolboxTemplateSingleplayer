@@ -186,4 +186,6 @@ binds: # These are all the current engine keybinds.
   type: State
   key: Tab
   mod1: Shift
-  
+- function: TextTabComplete
+  type: State
+  key: Tab
